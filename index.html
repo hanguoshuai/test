@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>体检--全局配置--环境配置</title>
+		<title>2017全网私有云成熟度总体分析</title>
 		<link rel="icon" href="favicon.ico">
 		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<style type="text/css">
@@ -16,6 +15,7 @@
 				background: #fff;
 				margin: 20px auto;
 			}
+			
 			.aa {
 				position: absolute;
 				top: 20px;
@@ -26,13 +26,14 @@
 				border: 1px solid #ccc;
 				/*background: red;*/
 			}
+			
 			.aaa {
 				position: absolute;
 				top: 0px;
-				left: 10px;
+				/*left: 10px;*/
 				display: inline-block;
 				height: 16px;
-				width: 310px;
+				width: 320px;
 			}
 			
 			.title {
@@ -51,6 +52,18 @@
 				float: left;
 			}
 			
+			.clear1 {
+				position: absolute;
+				top: 22px;
+				right: 10px;
+				font-size: 12px;
+				font-weight: 100;
+				border: 1px solid #ccc;
+				border-radius: 5px;
+				z-index: 1000;
+				background: #f7f7f7;
+			}
+			
 			.guanli {
 				position: absolute;
 				top: 22px;
@@ -66,7 +79,8 @@
 				font-size: 16px;
 				font-weight: 700;
 			}
-			.lengend-box{
+			
+			.lengend-box {
 				width: 320px;
 				height: 72px;
 				overflow: hidden;
@@ -75,13 +89,21 @@
 				z-index: 1000;
 				opacity: 0;
 			}
-			.lengend-item{
+			
+			.lengend-item {
 				float: left;
 				padding-left: 32px;
 				padding-top: 2px;
 				padding-bottom: 2px;
 				color: #fff;
+			}
+			.w{
+				width: 20%;
+				text-align: center;
 				
+			}
+			.fl{
+				float: left;
 			}
 		</style>
 	</head>
@@ -89,11 +111,19 @@
 	<body>
 		<div id="a">
 			<img class="aa" src="images/bgc.png" />
-			<img src="images/name.png" class="aaa" alt="" />
+			<!--<img src="images/name.png" class="aaa" alt="" />-->
+			<div class="aaa" style="overflow: hidden;">
+				<div class="fl w">L1离散</div>
+				<div class="fl w">L2标准</div>
+				<div class="fl w">L3服务</div>
+				<div class="fl w">L4能力</div>
+				<div class="fl w">L5共享</div>
+			</div>
+			<div class="clear1">clear</div>
 			<div class="guanli">管理</div>
 			<div class="jishu">技术</div>
 			<div class="lengend-box">
-				
+
 			</div>
 			<div id="main" style="width: 320px;height:420px;">
 			</div>
@@ -102,14 +132,15 @@
 		<script src="https://cdn.bootcss.com/echarts/3.8.5/echarts-en.common.js"></script>
 		<script src="js/fastclick.js"></script>
 		<script type="text/javascript">
+			// 基于准备好的dom，初始化echarts实例
 			var qqq = 3e2;
 			var len;
 			$.getJSON('js/echarts.json', function(res) {
 				var name = [];
 				var data = [];
-
 				var b = []
 				var se = []
+				//				console.log(res)
 				for(var i = 0; i < res.length; i++) {
 					var a = []
 					var arr = []
@@ -123,10 +154,14 @@
 					a.push(arr)
 					b.push(a)
 				}
+				//				console.log(se)
+				//				console.log(name)
+				//				console.log(b)
+				console.log(name)
 				var str = ''
-				len= name.length;
-				for(var i=0;i<name.length;i++){
-					str+='<div class="lengend-item" index='+i+'>'+name[i]+'</div>'
+				len = name.length;
+				for(var i = 0; i < name.length; i++) {
+					str += '<div class="lengend-item" index=' + i + '>' + name[i] + '</div>'
 				}
 				$('.lengend-box').html(str)
 				var myChart = echarts.init(document.getElementById('main'));
@@ -145,9 +180,9 @@
 					yaxisLine: {
 						onZero: true
 					},
-//					hoverLayerThreshold:20,
+					//					hoverLayerThreshold:20,
 					legend: {
-//						type: 'scroll',
+						//						type: 'scroll',
 						//						orient: 'vertical',
 						//						right: 0,
 						//						top: 60,
@@ -155,17 +190,17 @@
 						data: name,
 						borderColor: "#d8d8d8",
 						borderWidth: '1',
-//						selectedMode:false,
+						//						selectedMode:false,
 						//						height:300,
 						width: 310,
 						selected: {
-    // 选中'系列1'
-//  '': true,
-    // 不选中'系列2'
-//  '辽宁': false
-},
-						pageIconSize:10
-//						selectedMode: false
+							// 选中'系列1'
+							//  '': true,
+							// 不选中'系列2'
+							//  '辽宁': false
+						},
+						pageIconSize: 10
+						//						selectedMode: false
 					},
 					grid: {
 						right: '5',
@@ -204,15 +239,20 @@
 						//                  min: 0,
 
 					},
+
 					series: [{
+							//					silent:true,
+							//						legendHoverLink:false,
 							name: name[0],
 							data: data[0],
+							hoverAnimation: false,
 							type: 'scatter',
 							symbolSize: function(data) {
 								return Math.sqrt(data[2]) / qqq;
 							},
 							label: {
 								emphasis: {
+//									color:'#f981a7',
 									show: true,
 									formatter: function(param) {
 										return param.data[3];
@@ -220,6 +260,7 @@
 									position: 'top'
 								}
 							},
+
 							itemStyle: {
 								normal: {
 									shadowBlur: 10,
@@ -236,14 +277,17 @@
 							}
 						},
 						{
+							//							silent:true,
 							name: name[1],
 							data: data[1],
+							hoverAnimation: false,
 							type: 'scatter',
 							symbolSize: function(data) {
 								return Math.sqrt(data[2]) / qqq;
 							},
 							label: {
 								emphasis: {
+//									color:'#ffddd7',
 									show: true,
 									formatter: function(param) {
 										return param.data[3];
@@ -269,6 +313,7 @@
 						{
 							name: name[2],
 							data: data[2],
+							hoverAnimation: false,
 							type: 'scatter',
 							symbolSize: function(data) {
 								return Math.sqrt(data[2]) / qqq;
@@ -297,9 +342,11 @@
 								}
 							}
 						},
+						//四川
 						{
 							name: name[3],
 							data: data[3],
+							hoverAnimation: false,
 							type: 'scatter',
 							symbolSize: function(data) {
 								return Math.sqrt(data[2]) / qqq;
@@ -316,14 +363,14 @@
 							itemStyle: {
 								normal: {
 									shadowBlur: 10,
-									shadowColor: 'rgba(25, 100, 150, 0.5)',
+									shadowColor: 'rgba(110, 100, 100, 0.5)',
 									shadowOffsetY: 5,
 									color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
 										offset: 0,
-										color: 'rgb(255, 111, 255)'
+										color: 'rgb(255, 255, 255)'
 									}, {
 										offset: 1,
-										color: 'rgb(255, 180, 3)'
+										color: 'rgb(4, 8, 100)'
 									}])
 								}
 							}
@@ -331,6 +378,7 @@
 						{
 							name: name[4],
 							data: data[4],
+							hoverAnimation: false,
 							type: 'scatter',
 							symbolSize: function(data) {
 								return Math.sqrt(data[2]) / qqq;
@@ -354,7 +402,7 @@
 										color: 'rgb(255, 255, 255)'
 									}, {
 										offset: 1,
-										color: 'rgb(255, 0, 0)'
+										color: 'rgb(255, 100, 100)'
 									}])
 								}
 							}
@@ -362,6 +410,7 @@
 						{
 							name: name[5],
 							data: data[5],
+							hoverAnimation: false,
 							type: 'scatter',
 							symbolSize: function(data) {
 								return Math.sqrt(data[2]) / qqq;
@@ -393,6 +442,7 @@
 						{
 							name: name[6],
 							data: data[6],
+							hoverAnimation: false,
 							type: 'scatter',
 							symbolSize: function(data) {
 								return Math.sqrt(data[2]) / qqq;
@@ -424,6 +474,7 @@
 						{
 							name: name[7],
 							data: data[7],
+							hoverAnimation: false,
 							type: 'scatter',
 							symbolSize: function(data) {
 								return Math.sqrt(data[2]) / qqq;
@@ -444,7 +495,7 @@
 									shadowOffsetY: 5,
 									color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
 										offset: 0,
-										color: 'rgb(255, 0, 255)'
+										color: 'rgb(255, 255, 255)'
 									}, {
 										offset: 1,
 										color: 'rgb(66, 241, 0)'
@@ -455,6 +506,7 @@
 						{
 							name: name[8],
 							data: data[8],
+							hoverAnimation: false,
 							type: 'scatter',
 							symbolSize: function(data) {
 								return Math.sqrt(data[2]) / qqq;
@@ -475,10 +527,10 @@
 									shadowOffsetY: 5,
 									color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
 										offset: 0,
-										color: 'rgb(0, 255, 255)'
+										color: 'rgb(255, 255, 255)'
 									}, {
 										offset: 1,
-										color: 'rgb(26, 241, 24)'
+										color: 'rgb(126, 141, 24)'
 									}])
 								}
 							}
@@ -486,6 +538,7 @@
 						{
 							name: name[9],
 							data: data[9],
+							hoverAnimation: false,
 							type: 'scatter',
 							symbolSize: function(data) {
 								return Math.sqrt(data[2]) / qqq;
@@ -517,6 +570,7 @@
 						{
 							name: name[10],
 							data: data[10],
+							hoverAnimation: false,
 							type: 'scatter',
 							symbolSize: function(data) {
 								return Math.sqrt(data[2]) / qqq;
@@ -545,10 +599,10 @@
 								}
 							}
 						},
-
 						{
 							name: name[11],
 							data: data[11],
+							hoverAnimation: false,
 							type: 'scatter',
 							symbolSize: function(data) {
 								return Math.sqrt(data[2]) / qqq;
@@ -574,12 +628,14 @@
 										offset: 1,
 										color: 'rgb(1, 161, 159)'
 									}])
-								}
+								},
+
 							}
 						},
 						{
 							name: name[12],
 							data: data[12],
+							hoverAnimation: false,
 							type: 'scatter',
 							symbolSize: function(data) {
 								return Math.sqrt(data[2]) / qqq;
@@ -605,13 +661,15 @@
 										offset: 1,
 										color: 'rgb(0, 105, 223)'
 									}])
-								}
+								},
 							}
 						},
 						{
 							name: name[13],
 							data: data[13],
+							hoverAnimation: false,
 							type: 'scatter',
+							hoverAnimation: false,
 							symbolSize: function(data) {
 								return Math.sqrt(data[2]) / qqq;
 							},
@@ -631,22 +689,25 @@
 									shadowOffsetY: 5,
 									color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
 										offset: 0,
-										color: 'rgb(255, 255, 0)'
+										color: 'rgb(255, 255, 255)'
 									}, {
 										offset: 1,
-										color: 'rgb(36, 65, 255)'
+										color: 'rgb(136, 65, 155)'
 									}])
-								}
+								},
+
 							}
 						},
 						{
 							name: name[14],
 							data: data[14],
+							hoverAnimation: false,
 							type: 'scatter',
 							symbolSize: function(data) {
 								return Math.sqrt(data[2]) / qqq;
 							},
 							label: {
+								normal: false,
 								emphasis: {
 									show: true,
 									formatter: function(param) {
@@ -655,113 +716,139 @@
 									position: 'top'
 								}
 							},
+
 							itemStyle: {
 								normal: {
 									shadowBlur: 10,
-									shadowColor: 'rgba(25, 100, 150, 0.5)',
+									//													shadowColor: 'rgba(25, 100, 150, 0.5)',
 									shadowOffsetY: 5,
 									color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
 										offset: 0,
-										color: 'rgb(255, 0, 255)'
+										color: 'rgb(255, 255, 255)'
 									}, {
 										offset: 1,
 										color: 'rgb(77, 37, 255)'
 									}])
-								}
+								},
+
 							}
+
 						},
-//						{
-//							name: name[15],
-//							data: data[15],
-//							type: 'scatter',
-//							symbolSize: function(data) {
-//								return Math.sqrt(data[2]) / qqq;
-//							},
-//							label: {
-//								emphasis: {
-//									show: true,
-//									formatter: function(param) {
-//										return param.data[3];
-//									},
-//									position: 'top'
-//								}
-//							},
-//							itemStyle: {
-//								normal: {
-//									shadowBlur: 10,
-//									shadowColor: 'rgba(25, 100, 150, 0.5)',
-//									shadowOffsetY: 5,
-//									color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
-//										offset: 0,
-//										color: 'rgb(255, 0, 255)'
-//									}, {
-//										offset: 1,
-//										color: 'rgb(122, 20, 244)'
-//									}])
-//								}
-//							}
-//						}
 					]
 				};
-
 				// 使用刚指定的配置项和数据显示图表。
 				myChart.setOption(option);
-				
-//				$('.lengend-box').click(function(){
-//					console.log('hahah')
-//				})
-			$('.lengend-box').on('click','.lengend-item',function() {
-				console.log('韩国帅')
-				console.log($(this).attr('index'))
-				var index = $(this).attr('index')
-				var flag = true;
-				//所有显示的都消失，然后重新开始点击
-				for(var i=0;i<len;i++){
-					myChart.dispatchAction({
-					type: 'downplay',
-					seriesIndex: i,
-//					dataIndex: 0
-				});
-					myChart.dispatchAction({
-						type: 'hideTip',
-						seriesIndex: i,
-	//					dataIndex: 0
-					});
-				}
-				if(flag){
-					flag = false
-					myChart.dispatchAction({
-					type: 'highlight',
-					seriesIndex: index,
-//					dataIndex: 0
-				});
 
-				//  高亮某个图形的大小
-				myChart.dispatchAction({
-					type: 'showTip',
-					seriesIndex: index,
-//					dataIndex: 0
-				});
+				//点击清空按钮，就没有东西了
+				$('.clear1').click(function() {
+					console.log('clear')
+					for(var i = 0; i < len; i++) {
+						myChart.dispatchAction({
+							type: 'downplay',
+							seriesIndex: i,
+							dataIndex: 0
+						});
 
-				}else{
-					flag = true
-					myChart.dispatchAction({
-					type: 'downplay',
-					seriesIndex: index,
-//					dataIndex: 0
-				});
+						//											myChart.dispatchAction({
+						//												type: 'hideTip',
+						//												
+						//												seriesIndex: i,
+						//											});
+					}
+				})
+				//我现在要做的就是点击grid区域，然后获取到数据
+				myChart.on('click', function(e) {
+					console.log(e['seriesIndex'])
+					var index = e['seriesIndex']
+					var flag = true;
+					//所有显示的都消失，然后重新开始点击
+					for(var i = 0; i < len; i++) {
+						myChart.dispatchAction({
+							type: 'downplay',
+							seriesIndex: i,
+							dataIndex: 0
+						});
 
-				//  高亮某个图形的大小
-				myChart.dispatchAction({
-					type: 'hideTip',
-					seriesIndex: index,
-//					dataIndex: 0
-				});
-				}
-				
-			})
-			
-});
+						//											myChart.dispatchAction({
+						//												type: 'hideTip',
+						//												
+						//												seriesIndex: i,
+						//											});
+					}
+
+					if(flag) {
+						flag = false
+						myChart.dispatchAction({
+							type: 'highlight',
+							seriesIndex: index,
+							//							dataIndex: index					
+						});
+						//  高亮某个图形的大小
+						//											myChart.dispatchAction({
+						//												type: 'showTip',
+						//												
+						//												seriesIndex: index,
+						//											});
+					} else {
+						flag = true
+						myChart.dispatchAction({
+							type: 'downplay',
+							seriesIndex: index,
+							//							dataIndex: index
+						});
+						//  高亮某个图形的大小
+						//											myChart.dispatchAction({
+						//												type: 'hideTip',
+						//												
+						//												seriesIndex: index,
+						//													});
+					}
+
+				})
+
+				$('.lengend-box').on('click', '.lengend-item', function() {
+					console.log('韩国帅')
+					console.log($(this).attr('index'))
+					var index = $(this).attr('index')
+					var flag = true;
+					//所有显示的都消失，然后重新开始点击
+					for(var i = 0; i < len; i++) {
+						myChart.dispatchAction({
+							type: 'downplay',
+							seriesIndex: i,
+							dataIndex: 0
+						});
+
+					}
+					if(flag) {
+						flag = false
+						myChart.dispatchAction({
+							type: 'highlight',
+							seriesIndex: index,
+						});
+						//  高亮某个图形的大小
+						//											myChart.dispatchAction({
+						//												type: 'showTip',
+						//												
+						//												seriesIndex: index,
+						//											});
+					} else {
+						flag = true
+						myChart.dispatchAction({
+							type: 'downplay',
+							seriesIndex: index,
+							//							dataIndex: index
+						});
+						//  高亮某个图形的大小
+						//											myChart.dispatchAction({
+						//												type: 'hideTip',
+						//												
+						//												seriesIndex: index,
+						//													});
+					}
+
+				})
+			});
 		</script>
 	</body>
 
